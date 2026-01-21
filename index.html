@@ -1,0 +1,593 @@
+!DOCTYPE html
+html lang=zh-TW
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no
+    title北海岸山海親子三日遊  219-221title
+    meta name=description content=2026 北海岸三日遊行程表 - 親子旅遊規劃
+    
+    !-- 引入字體與圖示 --
+    link href=httpsfonts.googleapis.comcss2family=Noto+Sans+TCwght@400;500;700&display=swap rel=stylesheet
+    link rel=stylesheet href=httpscdnjs.cloudflare.comajaxlibsfont-awesome6.0.0cssall.min.css
+    
+    style
+        root {
+            --primary #2B7A78;  主色調：海洋綠 
+            --secondary #FEFFFF;  背景：浪花白 
+            --accent #FF7F50;  強調色：夕陽橘 
+            --text #17252A;  文字深色 
+            --bg #DEF2F1;  整體背景淡綠 
+            --card-bg #ffffff;
+        }
+
+         {
+            margin 0;
+            padding 0;
+            box-sizing border-box;
+            font-family 'Noto Sans TC', sans-serif;
+            -webkit-tap-highlight-color transparent;
+        }
+
+        body {
+            background-color var(--bg);
+            color var(--text);
+            overflow-x hidden;
+            line-height 1.6;
+        }
+
+         Header  Hero Section 
+        header {
+            height 55vh;
+            background linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('httpsimages.unsplash.comphoto-1552993873-0dd1110e025fixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size cover;
+            background-position center;
+            display flex;
+            flex-direction column;
+            justify-content center;
+            align-items center;
+            text-align center;
+            color white;
+            position relative;
+            box-shadow 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size 2.8rem;
+            margin-bottom 0.5rem;
+            text-shadow 2px 2px 5px rgba(0,0,0,0.5);
+            animation fadeInDown 1.2s ease;
+            padding 0 10px;
+        }
+
+        header p {
+            font-size 1.1rem;
+            background rgba(255, 127, 80, 0.95);
+            padding 8px 24px;
+            border-radius 50px;
+            animation fadeInUp 1.2s ease;
+            font-weight 500;
+            letter-spacing 1px;
+            box-shadow 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+         Navigation Tabs 
+        .nav-tabs {
+            display flex;
+            justify-content center;
+            background white;
+            position sticky;
+            top 0;
+            z-index 1000;
+            box-shadow 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .nav-link {
+            flex 1;
+            padding 16px 10px;
+            text-align center;
+            text-decoration none;
+            color #666;
+            font-weight 700;
+            transition 0.3s;
+            cursor pointer;
+            border-bottom 3px solid transparent;
+            font-size 1rem;
+            max-width 200px;
+        }
+
+        .nav-linkhover {
+            color var(--primary);
+            background #f4fcfc;
+        }
+
+        .nav-link.active {
+            color var(--primary);
+            border-bottom 3px solid var(--accent);
+            background #f9f9f9;
+        }
+
+         Timeline Container 
+        .container {
+            max-width 800px;
+            margin 30px auto;
+            padding 0 15px;
+            min-height 60vh;
+        }
+
+        .day-section {
+            display none;  Hidden by default 
+            animation fadeIn 0.4s ease forwards;
+        }
+
+        .day-section.active {
+            display block;
+        }
+
+        .day-title {
+            text-align center;
+            margin-bottom 35px;
+            font-size 1.8rem;
+            color var(--primary);
+            position relative;
+            font-weight 700;
+        }
+
+        .day-titleafter {
+            content '';
+            display block;
+            width 50px;
+            height 4px;
+            background var(--accent);
+            margin 10px auto;
+            border-radius 2px;
+        }
+
+         Timeline Items 
+        .timeline-item {
+            display flex;
+            margin-bottom 25px;
+            opacity 0;
+            transform translateY(20px);
+            transition all 0.5s ease-out;
+        }
+
+        .timeline-item.show {
+            opacity 1;
+            transform translateY(0);
+        }
+
+        .time-badge {
+            flex 0 0 70px;
+            display flex;
+            flex-direction column;
+            align-items center;
+            justify-content flex-start;
+            padding-top 5px;
+        }
+
+        .time-badge span {
+            font-weight 700;
+            color var(--primary);
+            font-size 1.1rem;
+            background #fff;
+            padding 2px 5px;
+            border-radius 4px;
+            z-index 2;
+        }
+
+        .line {
+            width 2px;
+            background #cbd5e0;
+            flex-grow 1;
+            margin-top 8px;
+            margin-bottom -25px;  Extend line to next item 
+        }
+        
+         Remove line for last item 
+        .timeline-itemlast-child .line {
+            display none;
+        }
+
+        .content-card {
+            flex 1;
+            background var(--card-bg);
+            border-radius 12px;
+            padding 20px;
+            box-shadow 0 4px 12px rgba(0,0,0,0.05);
+            margin-left 15px;
+            border-left 4px solid var(--primary);
+            position relative;
+            transition transform 0.2s;
+        }
+
+        .content-cardactive {
+            transform scale(0.99);
+        }
+
+        .content-card h3 {
+            color var(--primary);
+            margin-bottom 8px;
+            display flex;
+            align-items center;
+            gap 8px;
+            font-size 1.25rem;
+        }
+
+        .content-card .location {
+            font-size 0.9rem;
+            color #666;
+            margin-bottom 12px;
+            display flex;
+            align-items center;
+            gap 5px;
+        }
+
+        .content-card p {
+            font-size 0.95rem;
+            color #444;
+            margin-bottom 12px;
+            line-height 1.7;
+        }
+
+        .tag {
+            display inline-block;
+            background #f0f4f8;
+            color #4a5568;
+            padding 3px 10px;
+            border-radius 15px;
+            font-size 0.8rem;
+            margin-right 5px;
+            margin-bottom 5px;
+        }
+
+        .tag.highlight {
+            background #fff5f5;
+            color #c53030;
+            border 1px solid #fc8181;
+        }
+
+         Nav Button Style 
+        .nav-btn {
+            display inline-flex;
+            align-items center;
+            justify-content center;
+            gap 8px;
+            margin-top 10px;
+            padding 10px 16px;
+            background-color #fff;
+            color var(--primary);
+            border 1.5px solid var(--primary);
+            border-radius 8px;
+            text-decoration none;
+            font-size 0.9rem;
+            font-weight 600;
+            transition all 0.2s;
+            width 100%;  Mobile friendly full width 
+        }
+
+        .nav-btnhover {
+            background-color var(--primary);
+            color white;
+            box-shadow 0 4px 8px rgba(43, 122, 120, 0.2);
+        }
+        
+        .nav-btnactive {
+            transform translateY(1px);
+        }
+
+         Tips Section 
+        .tips-box {
+            background #fff;
+            border-radius 12px;
+            padding 18px;
+            margin-bottom 20px;
+            border 1.5px dashed var(--accent);
+            color #555;
+            display flex;
+            gap 12px;
+            align-items flex-start;
+            box-shadow 0 4px 6px rgba(0,0,0,0.02);
+        }
+        
+        .tips-box i {
+            color var(--accent);
+            font-size 1.2rem;
+            margin-top 3px;
+        }
+
+         Animations 
+        @keyframes fadeInDown {
+            from { opacity 0; transform translateY(-20px); }
+            to { opacity 1; transform translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity 0; transform translateY(20px); }
+            to { opacity 1; transform translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity 0; }
+            to { opacity 1; }
+        }
+
+         Responsive Adjustments 
+        @media (max-width 600px) {
+            header { height 45vh; }
+            header h1 { font-size 2rem; }
+            .day-title { font-size 1.5rem; margin-bottom 25px; }
+            .time-badge { flex 0 0 55px; }
+            .time-badge span { font-size 0.95rem; }
+            .content-card { padding 15px; margin-left 10px; }
+            .nav-link { font-size 0.95rem; padding 12px 5px; }
+        }
+    style
+head
+body
+
+    header
+        h1北海岸山海親子旅h1
+        pi class=fas fa-calendar-alti 20260219 - 0221p
+    header
+
+    nav class=nav-tabs
+        a class=nav-link active onclick=switchTab(1)Day 1brsmall北海岸smalla
+        a class=nav-link onclick=switchTab(2)Day 2brsmall山海戀smalla
+        a class=nav-link onclick=switchTab(3)Day 3brsmall平溪賦歸smalla
+    nav
+
+    div class=container
+
+        !-- Day 1 --
+        div id=day1 class=day-section active
+            h2 class=day-title219 (四) 地質奇觀與海鮮h2
+            
+            div class=timeline-item
+                div class=time-badge
+                    span1400span
+                    div class=linediv
+                div
+                div class=content-card
+                    h3i class=fas fa-mountaini 野柳地質公園h3
+                    div class=locationi class=fas fa-map-marker-alti 新北市萬里區div
+                    p避開人潮的午後時光，帶小朋友尋找女王頭與俏皮公主。海風吹拂，漫步海濱步道。p
+                    span class=tag停留 2 小時span
+                    a href=httpswww.google.commapsdirapi=1&destination=龜吼漁港 target=_blank class=nav-btn
+                        i class=fas fa-location-arrowi 導航至：龜吼漁港
+                    a
+                div
+            div
+
+            div class=timeline-item
+                div class=time-badge
+                    span1650span
+                    div class=linediv
+                div
+                div class=content-card
+                    h3i class=fas fa-fishi 龜吼漁港 & 維納斯海岸h3
+                    div class=locationi class=fas fa-map-marker-alti 新北市萬里區div
+                    p欣賞全台最美海岸線之一，晚餐在漁港享用新鮮海產（小漁村、三明美食等）。p
+                    span class=tag晚餐span span class=tag海景span
+                    a href=httpswww.google.commapsdirapi=1&destination=汐止福泰飯店 target=_blank class=nav-btn
+                        i class=fas fa-location-arrowi 導航至：汐止福泰飯店
+                    a
+                div
+            div
+
+            div class=timeline-item
+                div class=time-badge
+                    span1900span
+                div
+                div class=content-card style=border-left-color #4A5568;
+                    h3i class=fas fa-bedi 汐止福泰飯店h3
+                    pCheck-in 休息，養精蓄銳準備明天的豐富行程。旁邊即是遠雄廣場，補給方便。p
+                div
+            div
+        div
+
+        !-- Day 2 --
+        div id=day2 class=day-section
+            h2 class=day-title220 (五) 九份、澳底、潮境h2
+            
+            div class=timeline-item
+                div class=time-badge
+                    span1000span
+                    div class=linediv
+                div
+                div class=content-card
+                    h3i class=fas fa-coffeei 九份老街h3
+                    div class=locationi class=fas fa-map-marker-alti 指定上午時段div
+                    p避開遊客高峰，享受山城寧靜。推薦：阿妹茶樓拍照、吃賴阿婆芋圓。階梯較多，建議牽手慢走。p
+                    span class=tag highlight指定行程span span class=tag停留 2.5 小時span
+                    a href=httpswww.google.commapsdirapi=1&destination=黑白毛海產 target=_blank class=nav-btn
+                        i class=fas fa-location-arrowi 導航至：黑白毛海產
+                    a
+                div
+            div
+
+            div class=timeline-item
+                div class=time-badge
+                    span1310span
+                    div class=linediv
+                div
+                div class=content-card
+                    h3i class=fas fa-utensilsi 黑白毛海產h3
+                    div class=locationi class=fas fa-map-marker-alti 貢寮澳底div
+                    p北海岸高CP值海鮮名店。必點：薑悶小卷、五味九孔、芙蓉海菜。店旁有停車場。p
+                    span class=tag highlight現金付款span span class=tag停留 1.5 小時span
+                    a href=httpswww.google.commapsdirapi=1&destination=潮境公園 target=_blank class=nav-btn
+                        i class=fas fa-location-arrowi 導航至：潮境公園
+                    a
+                div
+            div
+
+            div class=timeline-item
+                div class=time-badge
+                    span1515span
+                    div class=linediv
+                div
+                div class=content-card
+                    h3i class=fas fa-childi 潮境海洋公園h3
+                    div class=locationi class=fas fa-map-marker-alti 基隆八斗子div
+                    p小孩放電天堂！鸚鵡螺溜滑梯、巨大飛天掃帚。視野開闊可遠眺基隆嶼。p
+                    span class=tag親子推薦span span class=tag雨天備案：海科館span
+                    a href=httpswww.google.commapsdirapi=1&destination=基隆廟口夜市 target=_blank class=nav-btn
+                        i class=fas fa-location-arrowi 導航至：基隆廟口夜市
+                    a
+                div
+            div
+
+            div class=timeline-item
+                div class=time-badge
+                    span1730span
+                    div class=linediv
+                div
+                div class=content-card
+                    h3i class=fas fa-stari 基隆廟口夜市h3
+                    div class=locationi class=fas fa-map-marker-alti 仁三路div
+                    p晚餐大滿足：營養三明治、泡泡冰、一口吃香腸、天婦羅。建議停東岸商場停車場。p
+                    a href=httpswww.google.commapsdirapi=1&destination=汐止福泰飯店 target=_blank class=nav-btn
+                        i class=fas fa-location-arrowi 導航至：汐止福泰飯店
+                    a
+                div
+            div
+             div class=timeline-item
+                div class=time-badge
+                    span1930span
+                div
+                div class=content-card style=border-left-color #4A5568;
+                    h3i class=fas fa-bedi 汐止福泰飯店h3
+                    p返回飯店休息。p
+                div
+            div
+        div
+
+        !-- Day 3 --
+        div id=day3 class=day-section
+            h2 class=day-title221 (六) 平溪祈福 & 賦歸h2
+
+            div class=tips-box
+                divi class=fas fa-car-sideidiv
+                divb初五路況提醒：bbr考量大年初五南下車潮，深坑至嘉義車程預抓 4 小時（含塞車緩衝），行程較為寬裕，請隨時留意即時路況。div
+            div
+
+            div class=timeline-item
+                div class=time-badge
+                    span1000span
+                    div class=linediv
+                div
+                div class=content-card
+                    h3i class=fas fa-traini 平溪支線：菁桐老街h3
+                    div class=locationi class=fas fa-map-marker-alti 平溪區div
+                    p比十分更清幽，適合幼童。在古老鐵道旁寫許願竹筒、放天燈祈福。p
+                    span class=tag停留 1.5 小時span
+                    a href=httpswww.google.commapsdirapi=1&destination=深坑老街 target=_blank class=nav-btn
+                        i class=fas fa-location-arrowi 導航至：深坑老街
+                    a
+                div
+            div
+
+            div class=timeline-item
+                div class=time-badge
+                    span1200span
+                    div class=linediv
+                div
+                div class=content-card
+                    h3i class=fas fa-bowl-foodi 深坑老街h3
+                    div class=locationi class=fas fa-map-marker-alti 往國三順路div
+                    p午餐：大樹下豆腐三吃、碳烤臭豆腐、豆腐冰淇淋。預計 1330 出發避開最尖峰。p
+                    span class=tag必吃豆腐span
+                    a href=httpswww.google.commapsdirapi=1&destination=翁聚德鵝肉 target=_blank class=nav-btn
+                        i class=fas fa-location-arrowi 導航至：嘉義翁聚德
+                    a
+                div
+            div
+
+            div class=timeline-item
+                div class=time-badge
+                    span1730span
+                    div class=linediv
+                div
+                div class=content-card
+                    h3i class=fas fa-drumstick-bitei 翁聚德鵝肉h3
+                    div class=locationi class=fas fa-map-marker-alti 嘉義中埔交流道旁div
+                    p因應初五塞車預留較多車程時間。這裡停車方便，鵝肉多汁鮮美，空間寬敞適合休息。p
+                    span class=tag highlight必點鵝肉span span class=tag晚餐休息span
+                    a href=httpswww.google.commapsdirapi=1&destination=高雄市 target=_blank class=nav-btn
+                        i class=fas fa-location-arrowi 導航至：高雄溫暖的家
+                    a
+                div
+            div
+
+            div class=timeline-item
+                div class=time-badge
+                    span2030span
+                div
+                div class=content-card style=border-left-color #FF7F50;
+                    h3i class=fas fa-homei 快樂賦歸h3
+                    div class=locationi class=fas fa-roadi 抵達高雄div
+                    p結束三天兩夜的美好旅程，平安抵達高雄。p
+                div
+            div
+        div
+
+    div
+
+    script
+         Tab Switching Logic
+        function switchTab(day) {
+             Update Navigation
+            document.querySelectorAll('.nav-link').forEach(link = link.classList.remove('active'));
+            document.querySelectorAll('.nav-link')[day-1].classList.add('active');
+
+             Update Content
+            document.querySelectorAll('.day-section').forEach(section = {
+                section.classList.remove('active');
+                 Reset animation state
+                const items = section.querySelectorAll('.timeline-item');
+                items.forEach(item = item.classList.remove('show'));
+            });
+            
+            const activeSection = document.getElementById('day' + day);
+            activeSection.classList.add('active');
+
+             Trigger Animation
+            triggerScrollAnimation();
+            
+             Scroll to top of timeline
+            window.scrollTo({ top document.querySelector('.nav-tabs').offsetTop - 20, behavior 'smooth' });
+        }
+
+         Scroll Animation Logic
+        function triggerScrollAnimation() {
+            const items = document.querySelectorAll('.day-section.active .timeline-item');
+            
+             Initial check for visible items
+            items.forEach((item, index) = {
+                 Staggered animation for items already in view
+                setTimeout(() = {
+                    item.classList.add('show');
+                }, index  100); 
+            });
+
+             Observer for scrolling
+            const observer = new IntersectionObserver((entries) = {
+                entries.forEach((entry) = {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold 0.1 });
+
+            items.forEach(item = {
+                observer.observe(item);
+            });
+        }
+
+         Initialize on load
+        document.addEventListener('DOMContentLoaded', () = {
+            triggerScrollAnimation();
+        });
+    script
+
+body
+html
