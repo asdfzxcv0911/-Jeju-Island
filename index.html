@@ -15,6 +15,7 @@
             --primary: #2B7A78; /* 主色調：海洋綠 */
             --secondary: #FEFFFF; /* 背景：浪花白 */
             --accent: #FF7F50; /* 強調色：夕陽橘 */
+            --important: #E53E3E; /* 警示紅 */
             --text: #17252A; /* 文字深色 */
             --bg: #DEF2F1; /* 整體背景淡綠 */
             --card-bg: #ffffff;
@@ -212,6 +213,14 @@
             gap: 8px;
             font-size: 1.25rem;
         }
+        
+        /* Special style for important card */
+        .content-card.important {
+            border-left-color: var(--important);
+        }
+        .content-card.important h3 {
+            color: var(--important);
+        }
 
         .content-card .location {
             font-size: 0.9rem;
@@ -245,6 +254,21 @@
             color: #c53030;
             border: 1px solid #fc8181;
         }
+        
+        .tag.alert {
+            background: #fff5f5;
+            color: var(--important);
+            border: 1px solid var(--important);
+            font-weight: bold;
+        }
+        
+        /* Duration Tag specific style */
+        .tag.time {
+            background-color: #E6FFFA;
+            color: var(--primary);
+            border: 1px solid #B2F5EA;
+            font-weight: 500;
+        }
 
         /* Nav Button Style */
         .nav-btn {
@@ -274,6 +298,17 @@
         .nav-btn:active {
             transform: translateY(1px);
         }
+        
+        /* QR Button specific style */
+        .qr-btn {
+            background-color: var(--important);
+            color: white;
+            border-color: var(--important);
+        }
+        .qr-btn:hover {
+            background-color: #c53030;
+            color: white;
+        }
 
         /* Tips Section */
         .tips-box {
@@ -293,6 +328,71 @@
             color: var(--accent);
             font-size: 1.2rem;
             margin-top: 3px;
+        }
+        
+        .tips-box strong {
+            color: var(--text);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content-wrapper {
+            position: relative;
+            margin: 5% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            background: #fff;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .modal-title {
+            color: var(--text);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--bg);
+            padding-bottom: 10px;
+        }
+
+        .qr-images-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .qr-img {
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .close-modal-btn:hover {
+            color: #000;
         }
 
         /* Animations */
@@ -323,6 +423,21 @@
 </head>
 <body>
 
+    <!-- QR Code Modal -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content-wrapper">
+            <span class="close-modal-btn" onclick="closeQrModal()">&times;</span>
+            <h3 class="modal-title">乘車 QR Code (共3張)</h3>
+            <div class="qr-images-container">
+                <!-- 請務必將您的圖片命名為 qr1.png, qr2.png, qr3.png 並上傳到 GitHub -->
+                <img src="./qr1.png" class="qr-img" alt="QR Code 1" onerror="this.src='https://via.placeholder.com/400x400?text=請上傳+qr1.png'">
+                <img src="./qr2.png" class="qr-img" alt="QR Code 2" onerror="this.src='https://via.placeholder.com/400x400?text=請上傳+qr2.png'">
+                <img src="./qr3.png" class="qr-img" alt="QR Code 3" onerror="this.src='https://via.placeholder.com/400x400?text=請上傳+qr3.png'">
+            </div>
+            <p style="margin-top:15px; font-size:0.9rem; color:#666;">請出示此畫面給工作人員掃描</p>
+        </div>
+    </div>
+
     <header>
         <h1>北海岸山海親子旅</h1>
         <p><i class="fas fa-calendar-alt"></i> 2026/02/19 - 02/21</p>
@@ -338,99 +453,25 @@
 
         <!-- Day 1 -->
         <div id="day1" class="day-section active">
-            <h2 class="day-title">2/19 (四) 地質奇觀與海鮮</h2>
+            <h2 class="day-title">2/19 (四) 地質奇觀與金山美食</h2>
             
             <div class="timeline-item">
                 <div class="time-badge">
-                    <span>14:00</span>
+                    <span>15:00</span>
                     <div class="line"></div>
                 </div>
                 <div class="content-card">
                     <h3><i class="fas fa-mountain"></i> 野柳地質公園</h3>
                     <div class="location"><i class="fas fa-map-marker-alt"></i> 新北市萬里區</div>
-                    <p>避開人潮的午後時光，帶小朋友尋找女王頭與俏皮公主。海風吹拂，漫步海濱步道。</p>
-                    <span class="tag">停留 2 小時</span>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=龜吼漁港" target="_blank" class="nav-btn">
-                        <i class="fas fa-location-arrow"></i> 導航至：龜吼漁港
+                    <p>避開午後最熱時段，3點抵達剛好。帶小朋友尋找女王頭與俏皮公主。海風吹拂，漫步海濱步道。</p>
+                    <span class="tag time">停留 2 小時</span>
+                    <!-- 導航到 野柳地質公園 -->
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=野柳地質公園" target="_blank" class="nav-btn">
+                        <i class="fas fa-location-arrow"></i> 導航至：野柳地質公園
                     </a>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-badge">
-                    <span>16:50</span>
-                    <div class="line"></div>
-                </div>
-                <div class="content-card">
-                    <h3><i class="fas fa-fish"></i> 龜吼漁港 & 維納斯海岸</h3>
-                    <div class="location"><i class="fas fa-map-marker-alt"></i> 新北市萬里區</div>
-                    <p>欣賞全台最美海岸線之一，晚餐在漁港享用新鮮海產（小漁村、三明美食等）。</p>
-                    <span class="tag">晚餐</span> <span class="tag">海景</span>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=汐止福泰飯店" target="_blank" class="nav-btn">
-                        <i class="fas fa-location-arrow"></i> 導航至：汐止福泰飯店
-                    </a>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-badge">
-                    <span>19:00</span>
-                </div>
-                <div class="content-card" style="border-left-color: #4A5568;">
-                    <h3><i class="fas fa-bed"></i> 汐止福泰飯店</h3>
-                    <p>Check-in 休息，養精蓄銳準備明天的豐富行程。旁邊即是遠雄廣場，補給方便。</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Day 2 -->
-        <div id="day2" class="day-section">
-            <h2 class="day-title">2/20 (五) 九份、澳底、潮境</h2>
-            
-            <div class="timeline-item">
-                <div class="time-badge">
-                    <span>10:00</span>
-                    <div class="line"></div>
-                </div>
-                <div class="content-card">
-                    <h3><i class="fas fa-coffee"></i> 九份老街</h3>
-                    <div class="location"><i class="fas fa-map-marker-alt"></i> 指定上午時段</div>
-                    <p>避開遊客高峰，享受山城寧靜。推薦：阿妹茶樓拍照、吃賴阿婆芋圓。階梯較多，建議牽手慢走。</p>
-                    <span class="tag highlight">指定行程</span> <span class="tag">停留 2.5 小時</span>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=黑白毛海產" target="_blank" class="nav-btn">
-                        <i class="fas fa-location-arrow"></i> 導航至：黑白毛海產
-                    </a>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-badge">
-                    <span>13:10</span>
-                    <div class="line"></div>
-                </div>
-                <div class="content-card">
-                    <h3><i class="fas fa-utensils"></i> 黑白毛海產</h3>
-                    <div class="location"><i class="fas fa-map-marker-alt"></i> 貢寮澳底</div>
-                    <p>北海岸高CP值海鮮名店。必點：薑悶小卷、五味九孔、芙蓉海菜。店旁有停車場。</p>
-                    <span class="tag highlight">現金付款</span> <span class="tag">停留 1.5 小時</span>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=潮境公園" target="_blank" class="nav-btn">
-                        <i class="fas fa-location-arrow"></i> 導航至：潮境公園
-                    </a>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-badge">
-                    <span>15:15</span>
-                    <div class="line"></div>
-                </div>
-                <div class="content-card">
-                    <h3><i class="fas fa-child"></i> 潮境海洋公園</h3>
-                    <div class="location"><i class="fas fa-map-marker-alt"></i> 基隆八斗子</div>
-                    <p>小孩放電天堂！鸚鵡螺溜滑梯、巨大飛天掃帚。視野開闊可遠眺基隆嶼。</p>
-                    <span class="tag">親子推薦</span> <span class="tag">雨天備案：海科館</span>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=基隆廟口夜市" target="_blank" class="nav-btn">
-                        <i class="fas fa-location-arrow"></i> 導航至：基隆廟口夜市
+                    <!-- 導航到 金山老街 (下一站) -->
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=金山老街" target="_blank" class="nav-btn" style="margin-top: 5px; opacity: 0.9;">
+                        <i class="fas fa-arrow-right"></i> 下一站：金山老街
                     </a>
                 </div>
             </div>
@@ -441,17 +482,155 @@
                     <div class="line"></div>
                 </div>
                 <div class="content-card">
+                    <h3><i class="fas fa-store"></i> 金山老街 (金包里)</h3>
+                    <div class="location"><i class="fas fa-map-marker-alt"></i> 新北市金山區</div>
+                    <p>不吃海鮮的最佳替代方案！晚餐必吃人氣爆棚的「金山鴨肉」(體驗自己端菜)，再來根金山特產紅心地瓜冰淇淋。</p>
+                    <span class="tag time">停留約 2 小時</span> <span class="tag">必吃鴨肉</span>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=汐止福泰飯店" target="_blank" class="nav-btn" style="margin-top: 5px; opacity: 0.9;">
+                        <i class="fas fa-arrow-right"></i> 下一站：汐止福泰飯店
+                    </a>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-badge">
+                    <span>20:00</span>
+                </div>
+                <div class="content-card" style="border-left-color: #4A5568;">
+                    <h3><i class="fas fa-bed"></i> 汐止福泰飯店</h3>
+                    <p>Check-in 休息，養精蓄銳準備明天的豐富行程。旁邊即是遠雄廣場，補給方便。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div id="day2" class="day-section">
+            <h2 class="day-title">2/20 (五) 九份山城、澳底、鐵道追風</h2>
+            
+            <!-- Execution Notes -->
+            <div class="tips-box">
+                <div><i class="fas fa-clipboard-list"></i></div>
+                <div>
+                    <strong>📝 爸媽執行筆記：</strong><br>
+                    1. <b>停車策略：</b>導航至「潮境公園停車場」或「八斗子車站停車場」。兩處就在對面，走路可到，不需移車。<br>
+                    2. <b>小孩備案：</b>若身高未滿90cm，執行B計畫：一人去騎車，一人帶小孩在潮境公園玩，約50分鐘剛好接回。<br>
+                    3. <b>時間控管：</b>黑白毛海產務必 14:10 前離開。
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-badge">
+                    <span>09:10</span>
+                    <div class="line"></div>
+                </div>
+                <div class="content-card">
+                    <h3><i class="fas fa-car"></i> 飯店出發</h3>
+                    <div class="location"><i class="fas fa-hotel"></i> 汐止福泰飯店</div>
+                    <p>享用完飯店早餐，整理行李退房。預計車程約 40~50 分鐘前往九份。</p>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=九份老街" target="_blank" class="nav-btn">
+                        <i class="fas fa-location-arrow"></i> 導航至：九份老街
+                    </a>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-badge">
+                    <span>10:00</span>
+                    <div class="line"></div>
+                </div>
+                <div class="content-card">
+                    <h3><i class="fas fa-coffee"></i> 九份老街</h3>
+                    <div class="location"><i class="fas fa-map-marker-alt"></i> 瑞芳區</div>
+                    <p>避開遊客高峰，享受山城寧靜。推薦：阿妹茶樓拍照、吃賴阿婆芋圓。建議 12:00 準時離開取車。</p>
+                    <span class="tag time">停留 2 小時</span> <span class="tag highlight">指定行程</span>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=黑白毛海產" target="_blank" class="nav-btn">
+                        <i class="fas fa-location-arrow"></i> 導航至：黑白毛海產
+                    </a>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-badge">
+                    <span>12:40</span>
+                    <div class="line"></div>
+                </div>
+                <div class="content-card">
+                    <h3><i class="fas fa-utensils"></i> 黑白毛海產</h3>
+                    <div class="location"><i class="fas fa-map-marker-alt"></i> 貢寮澳底</div>
+                    <p>時間充裕，慢慢享用。<b>⚠️ 請設定 14:10 鬧鐘提醒結帳離開。</b></p>
+                    <span class="tag time">停留 1.5 小時</span> <span class="tag highlight">現金付款</span>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=潮境公園停車場" target="_blank" class="nav-btn">
+                        <i class="fas fa-location-arrow"></i> 導航至：潮境公園停車場
+                    </a>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-badge">
+                    <span>14:40</span>
+                    <div class="line"></div>
+                </div>
+                <div class="content-card">
+                    <h3><i class="fas fa-child"></i> 潮境海洋公園 (彈性)</h3>
+                    <div class="location"><i class="fas fa-map-marker-alt"></i> 基隆八斗子</div>
+                    <p><b>緩衝時間：</b>車停「潮境公園停車場」。帶小朋友玩鸚鵡螺溜滑梯、飛天掃帚。<b>15:35 請步行前往八斗子車站(過馬路即達)。</b></p>
+                    <span class="tag time">停留約 50 分鐘</span> <span class="tag">不需移車</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-badge">
+                    <span>15:40</span>
+                    <div class="line"></div>
+                </div>
+                <div class="content-card important">
+                    <h3><i class="fas fa-ticket-alt"></i> 深澳鐵道自行車 報到</h3>
+                    <div class="location"><i class="fas fa-exclamation-circle"></i> 八斗子車站</div>
+                    <p><b>務必準時報到！</b>出示訂票 QR Code 核對人數與身高。<br>(若小孩無法搭乘，請執行 B 計畫)</p>
+                    <span class="tag alert">逾時不候</span>
+                    
+                    <!-- QR Code Button -->
+                    <button onclick="openQrModal()" class="nav-btn qr-btn">
+                        <i class="fas fa-qrcode"></i> 顯示報到 QR Code (3張)
+                    </button>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-badge">
+                    <span>16:00</span>
+                    <div class="line"></div>
+                </div>
+                <div class="content-card">
+                    <h3><i class="fas fa-bicycle"></i> 鐵道自行車體驗</h3>
+                    <div class="location"><i class="fas fa-route"></i> 八斗子 ⬌ 深澳 (來回)</div>
+                    <p>16:00 去程，16:30 回程。欣賞最美海岸線與光影隧道。16:50 結束取車。</p>
+                    <span class="tag time">體驗約 50 分鐘</span> <span class="tag">已購票</span>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=基隆廟口夜市" target="_blank" class="nav-btn">
+                        <i class="fas fa-location-arrow"></i> 導航至：基隆廟口夜市
+                    </a>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-badge">
+                    <span>17:40</span>
+                    <div class="line"></div>
+                </div>
+                <div class="content-card">
                     <h3><i class="fas fa-star"></i> 基隆廟口夜市</h3>
                     <div class="location"><i class="fas fa-map-marker-alt"></i> 仁三路</div>
-                    <p>晚餐大滿足：營養三明治、泡泡冰、一口吃香腸、天婦羅。建議停東岸商場停車場。</p>
+                    <p>運動完大吃一頓！營養三明治、泡泡冰、一口吃香腸、天婦羅。建議停東岸商場停車場。</p>
+                    <span class="tag time">停留 1.5 小時</span>
                     <a href="https://www.google.com/maps/dir/?api=1&destination=汐止福泰飯店" target="_blank" class="nav-btn">
                         <i class="fas fa-location-arrow"></i> 導航至：汐止福泰飯店
                     </a>
                 </div>
             </div>
+
              <div class="timeline-item">
                 <div class="time-badge">
-                    <span>19:30</span>
+                    <span>19:40</span>
                 </div>
                 <div class="content-card" style="border-left-color: #4A5568;">
                     <h3><i class="fas fa-bed"></i> 汐止福泰飯店</h3>
@@ -471,6 +650,21 @@
 
             <div class="timeline-item">
                 <div class="time-badge">
+                    <span>09:10</span>
+                    <div class="line"></div>
+                </div>
+                <div class="content-card">
+                    <h3><i class="fas fa-car"></i> 飯店出發</h3>
+                    <div class="location"><i class="fas fa-hotel"></i> 汐止福泰飯店</div>
+                    <p>整理行李退房，準備前往平溪山城。預計車程約 40~50 分鐘。</p>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=菁桐老街" target="_blank" class="nav-btn">
+                        <i class="fas fa-location-arrow"></i> 導航至：菁桐老街
+                    </a>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-badge">
                     <span>10:00</span>
                     <div class="line"></div>
                 </div>
@@ -478,7 +672,23 @@
                     <h3><i class="fas fa-train"></i> 平溪支線：菁桐老街</h3>
                     <div class="location"><i class="fas fa-map-marker-alt"></i> 平溪區</div>
                     <p>比十分更清幽，適合幼童。在古老鐵道旁寫許願竹筒、放天燈祈福。</p>
-                    <span class="tag">停留 1.5 小時</span>
+                    <span class="tag time">停留 1 小時</span>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=十分老街" target="_blank" class="nav-btn">
+                        <i class="fas fa-location-arrow"></i> 導航至：十分老街 (備案)
+                    </a>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="time-badge">
+                    <span>11:10</span>
+                    <div class="line"></div>
+                </div>
+                <div class="content-card">
+                    <h3><i class="fas fa-map-signs"></i> 備案：十分老街</h3>
+                    <div class="location"><i class="fas fa-water"></i> 視情況前往</div>
+                    <p>若菁桐太早逛完，可順遊十分瀑布或老街。<b>注意：此處人潮較多且難停車，請自行評估時間。</b></p>
+                    <span class="tag highlight">彈性行程</span> <span class="tag time">預計停留 40 分鐘</span>
                     <a href="https://www.google.com/maps/dir/?api=1&destination=深坑老街" target="_blank" class="nav-btn">
                         <i class="fas fa-location-arrow"></i> 導航至：深坑老街
                     </a>
@@ -487,14 +697,14 @@
 
             <div class="timeline-item">
                 <div class="time-badge">
-                    <span>12:00</span>
+                    <span>12:15</span>
                     <div class="line"></div>
                 </div>
                 <div class="content-card">
                     <h3><i class="fas fa-bowl-food"></i> 深坑老街</h3>
                     <div class="location"><i class="fas fa-map-marker-alt"></i> 往國三順路</div>
-                    <p>午餐：大樹下豆腐三吃、碳烤臭豆腐、豆腐冰淇淋。預計 13:30 出發避開最尖峰。</p>
-                    <span class="tag">必吃豆腐</span>
+                    <p>午餐：大樹下豆腐三吃、碳烤臭豆腐、豆腐冰淇淋。<b>預計 13:45 務必上車出發，避開最尖峰。</b></p>
+                    <span class="tag time">停留 1.5 小時</span> <span class="tag">必吃豆腐</span>
                     <a href="https://www.google.com/maps/dir/?api=1&destination=翁聚德鵝肉" target="_blank" class="nav-btn">
                         <i class="fas fa-location-arrow"></i> 導航至：嘉義翁聚德
                     </a>
@@ -503,14 +713,14 @@
 
             <div class="timeline-item">
                 <div class="time-badge">
-                    <span>17:30</span>
+                    <span>17:45</span>
                     <div class="line"></div>
                 </div>
                 <div class="content-card">
                     <h3><i class="fas fa-drumstick-bite"></i> 翁聚德鵝肉</h3>
                     <div class="location"><i class="fas fa-map-marker-alt"></i> 嘉義中埔交流道旁</div>
                     <p>因應初五塞車預留較多車程時間。這裡停車方便，鵝肉多汁鮮美，空間寬敞適合休息。</p>
-                    <span class="tag highlight">必點鵝肉</span> <span class="tag">晚餐休息</span>
+                    <span class="tag time">停留 1 小時</span> <span class="tag highlight">必點鵝肉</span>
                     <a href="https://www.google.com/maps/dir/?api=1&destination=高雄市" target="_blank" class="nav-btn">
                         <i class="fas fa-location-arrow"></i> 導航至：高雄溫暖的家
                     </a>
@@ -519,7 +729,7 @@
 
             <div class="timeline-item">
                 <div class="time-badge">
-                    <span>20:30</span>
+                    <span>20:45</span>
                 </div>
                 <div class="content-card" style="border-left-color: #FF7F50;">
                     <h3><i class="fas fa-home"></i> 快樂賦歸</h3>
@@ -582,6 +792,23 @@
                 observer.observe(item);
             });
         }
+
+        // QR Modal Logic
+        function openQrModal() {
+            document.getElementById('qrModal').style.display = 'block';
+        }
+
+        function closeQrModal() {
+            document.getElementById('qrModal').style.display = 'none';
+        }
+
+        // Close when clicking background
+        window.onclick = function(event) {
+            const modal = document.getElementById("qrModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
 
         // Initialize on load
         document.addEventListener('DOMContentLoaded', () => {
